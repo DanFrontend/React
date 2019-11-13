@@ -1,26 +1,41 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { useState } from 'react';
+
+import FilmList from './components/FilmList';
+import Content from "./components/Content";
 import './App.css';
 
+export const MyContext = React.createContext('light');
+
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    const [per, setPer] = useState({
+        dark: '#000000'
+    });
+    console.log(per.dark + 1);
+    const some = {
+        a:2,
+        d:3
+    };
+    const color = {
+        light: {
+            foreground: '#000000',
+            background: '#eeeeee',
+        },
+        dark: {
+            foreground: '#ffffff',
+            background: '#222222',
+        },
+    };
+    return (
+        <>
+            <MyContext.Provider value={{
+                state: per,
+                editState: () => setPer(per.dark = 1)
+            }}>
+                <FilmList pr={some} cl={color}/>
+            </MyContext.Provider>
+            <Content/>
+        </>
+    );
 }
 
 export default App;
